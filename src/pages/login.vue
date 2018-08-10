@@ -31,11 +31,11 @@
 <script>
 export default {
 	data() {
-    const validateUsername = function(){};
+		const validateUsername = function() {};
 		return {
 			loginForm: {
-				username: 'admin',
-				password: 'admin'
+				username: 'admin1',
+				password: 'admin123'
 			},
 			loginRules: {
 				username: [
@@ -43,9 +43,9 @@ export default {
 					{ min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'blur' }
 				],
 				password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
-          { min: 8, max: 15, message: '长度在 8 到 15 个字符', trigger: 'blur' }
-        ]
+					{ required: true, message: '请输入密码', trigger: 'blur' },
+					{ min: 8, max: 15, message: '长度在 8 到 15 个字符', trigger: 'blur' }
+				]
 			},
 			loading: false,
 			pwdType: 'password',
@@ -63,16 +63,23 @@ export default {
 			}
 		},
 		handleLogin() {
-      this.loading = true;
-      this.$refs.loginForm.validate((valid) => {
-        console.log(valid);
-          if (valid) {
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-    }
+			this.loading = true;
+			this.$refs.loginForm.validate(valid => {
+				if (valid) {
+					this.$store.dispatch('LOGIN', this.loginForm).then(result => {
+						this.loading = false;
+						this.$message({
+							type: 'success',
+							message: '登录成功'
+						});
+					});
+				} else {
+					console.log('error submit!!');
+					this.loading = false;
+					return false;
+				}
+			});
+		}
 	}
 };
 </script>

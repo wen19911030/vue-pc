@@ -1,8 +1,11 @@
+require('es6-promise/auto');
+
 import Vue from 'vue';
 import { Form, FormItem, Input, Button, Loading, Message } from 'element-ui';
 import 'normalize.css/normalize.css'; // A modern alternative to CSS resets
 import App from './App';
 import router from './router';
+import store from './store';
 import iconSvg from './components/iconSvg';
 
 const comArr = [Form, FormItem, Input, Button, iconSvg];
@@ -29,5 +32,6 @@ Vue.config.productionTip = false;
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 });
